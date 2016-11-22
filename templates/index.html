@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Home</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script src="/static/dice.js"></script>
+</head>
+
+<body>
+
+
+  <h1 id="title">Scratch Off Lottery</h1>
+
+  <form action="/lottery" method="get">
+    <input name="numofboards" type="text">
+    <input name="printboards" type="submit" value="Print">
+  </form>
+
+  <h2>Money:</h2> <p id="money"></p>
+
+</body>
+</html>
