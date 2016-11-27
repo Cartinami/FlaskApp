@@ -12,14 +12,18 @@
 
 <body>
 
-  <h1 id="title">Please Enter Your Info</h1>
+  <h1 id="title">How Many Tickets Would You Like?</h1>
 
-  <form id="infoform" action="/name" method="post">
-    <input name="firstname" type="text" />
-    <input name="lastname" type="text" />
-    <input name="number" type="number"/>
-    <input name="btnsubmit" type="submit" value="Submit" />
-  </form>
+  <form action="/" method="post" id="ticketsform" name="ticketsform">
+    <input id="numofticks" name="numofticks" type="number" />
+    <button id="btnsubmit" name="btnsubmit" type="submit">Submit</button>
+  </form><br />
+
+
+
+  <div id="ticketcontain">
+    {{tickets}}
+  </div>
 
 </body>
 </html>
