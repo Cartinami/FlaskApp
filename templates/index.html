@@ -24,17 +24,19 @@
   <div id="numbererror">
     {{numerror}}
   </div>
-  
+
   <div id="ticketcontain">
     <ol>
-      {% for x in boards %}
+      {% for dict_item in boards %}
         <li>
-          <ul>
-            {% for x in numbers%}
-              <li>{{x}}</li>
-            {% endfor %}
-          </ul>
-        </li>
+          {% for key, value in dict_item.items() %}
+            <ul>
+              <li>
+                {{value}}
+              </li>
+            </ul>
+          {% endfor %}
+        </li><br />
       {% endfor %}
     </ol>
   </div>

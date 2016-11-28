@@ -14,14 +14,17 @@ def index():
         elif request.method == 'POST':
             requestdata = request.form['numofticks']
             tickets = int(requestdata)
-            numbers = {}
             boards = []
             while len(boards) < tickets:
-                numbers = {randint(1, 50): 'one', randint(1, 50): 'two', randint(1, 50): 'three', randint(1, 50): 'four', randint(1, 50): 'five'}
-                boards.append(dict(numbers))
-            return render_template('index.html', tickets = tickets, boards = boards, numbers = numbers)
+                one = randint(1,50)
+                two = randint(1,50)
+                three = randint(1,50)
+                four = randint(1,50)
+                five = randint(1,50)
+                boards.append(dict({'one':one, 'two':two, 'three':three, 'four':four, 'five':five}))
+            return render_template('index.html', boards = boards)
         else:
-            return 'Invlalid Request'
+            return 'Error Occurred'
     except:
         numerror = 'Please enter a number'
         return render_template('index.html', numerror = numerror)
