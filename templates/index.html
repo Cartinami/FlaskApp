@@ -22,21 +22,44 @@
   </form><br />
 
   <div id="numbererror">
-    {{numerror}}
+    {{ error }}
   </div>
 
-  <div id="ticketcontain">
-    <ol>
-      {% for dict_item in boards %}
+  <div id="tickets">
+    <h3 id="ticketshead">Tickets</h3>
+    <ul>
+      {% for row in boards %}
         <li>
-          {% for key, value in dict_item.items() %}
-            <ul>
-              <li>
-                {{value}}
-              </li>
-            </ul>
+        <ol>
+          {% for bow in row %}
+            <li>
+              {{ bow }}
+            </li>
           {% endfor %}
-        </li><br />
+        </ol><br />
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div id="winnumbers">
+    <h3 id="winnumbershead">Winning Numbers</h3>
+    <ol>
+      {% for row in winningnumbers %}
+        <li>
+          {{ row }}
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div id="stats">
+    <h4 id="statshead">Stats</h4>
+    <ol>
+      {% for row in stats %}
+       <li>
+         {{ row }}
+       </li>
       {% endfor %}
     </ol>
   </div>
