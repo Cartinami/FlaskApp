@@ -25,46 +25,41 @@ def index():
                 four = randint(1,10)
                 five = randint(1,10)
                 boards.append(list([one,two,three,four,five]))
-                if (winningnumbers[0]==one and winningnumbers[1]==two and winningnumbers[2]==three and winningnumbers[3]==four and winningnumbers[4]==five):
+                if ((one == winningnumbers[0]) and (two == winningnumbers[1]) and (three == winningnumbers[2]) and (four == winningnumbers[3]) and (five == winningnumbers[4])):
                     winner = True
                     loser = False
                     matchone = False
                     matchtwo = False
                     matchthree = False
                     matchfour = False
-                    break
-                elif (winningnumbers[0]==one and winningnumbers[1]==two and winningnumbers[2]==three and winningnumbers[3]==four):
+                elif ((one == winningnumbers[0]) and (two == winningnumbers[1]) and (three == winningnumbers[2]) and (four == winningnumbers[3])):
                     matchfour = True
                     winner = False
                     loser = False
                     matchone = False
                     matchtwo = False
                     matchthree = False
-                    break
-                elif (winningnumbers[0]==one and winningnumbers[1]==two and winningnumbers[2]==three):
+                elif ((one == winningnumbers[0]) and (two == winningnumbers[1]) and (three == winningnumbers[2])):
                     matchthree = True
                     winner = False
                     loser = False
                     matchone = False
                     matchtwo = False
                     matchfour = False
-                    break
-                elif (winningnumbers[0]==one and winningnumbers[1]==two):
+                elif ((one == winningnumbers[0]) and (two == winningnumbers[1])):
                     matchtwo = True
                     winner = False
                     loser = False
                     matchone = False
                     matchthree = False
                     matchfour = False
-                    break
-                elif winningnumbers[0]==one:
+                elif one == winningnumbers[0]:
                     matchone = True
                     winner = False
                     loser = False
                     matchtwo = False
                     matchthree = False
                     matchfour = False
-                    break
                 else:
                     loser = True
                     winner = False
@@ -74,7 +69,7 @@ def index():
                     matchfour = False
                 stats.append(list([winner,loser,matchone,matchtwo,matchthree,matchfour]))
 
-                # - fix if statement above - change winnignumbers back to dict, keys 1, 2, 3
+                # - fix if statement above -
                 # - find database to use and connect to
                 # - move for loops to backend
             return render_template('index.html', boards = boards, winningnumbers = winningnumbers, winner = winner, loser = loser, matchone = matchone, matchtwo = matchtwo, matchthree = matchthree, matchfour = matchfour, stats = stats)
