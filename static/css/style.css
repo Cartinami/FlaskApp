@@ -1,0 +1,17 @@
+.login {
+  width: 40%;
+  height: 40%;
+  background-color: black;
+}
+#go {
+  float: right;
+}
+#tixcontainer{
+  float: right;
+  margin-right: 5%;
+  width: 20%;
+}
+#tickets{
+  width: 20%;
+  margin: 0;
+}

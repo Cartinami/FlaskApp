@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Powerball</title>
+  <link href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <script src="{{ url_for('static', filename='javascript/jquery-3.1.1.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='javascript/bootstrap.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='javascript/ajax.js')}}"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="{{ url_for('powerball') }}">Powerball</a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Username</a></li>
+        <li><a href="#">${{ money }}</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <h1 id="title">How Many Tickets Would You Like?</h1>
+
+  <form action="/powerball" method="post" id="ticketsform" name="ticketsform">
+    <input id="numofticks" name="numofticks" type="number" />
+    <button id="btnsubmit" name="btnsubmit" type="submit">Submit</button>
+  </form><br />
+
+  <div id="numbererror">
+    {{ error }}
+  </div>
+
+  <div id="tixcontainer">
+    <div id="winnumbers">
+      <h3 id="winnumbershead">Winning Numbers</h3>
+      <ol>
+        {% for row in winningnumbers %}
+          <li>
+            {{ row }}
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+
+    <div id="stats">
+      <h4 id="statshead">Stats</h4>
+      <ol>
+        {% for row in stats %}
+         <li>
+           {{ row }}
+         </li>
+        {% endfor %}
+      </ol>
+    </div>
+    </div>
+    
+  <div id="tickets">
+    <h3 id="ticketshead">Tickets</h3>
+    <ol>
+      {% for row in boards %}
+        <li>
+        <ol>
+          {% for bow in row %}
+            <li>
+              {{ bow }}
+            </li>
+          {% endfor %}
+        </ol><br />
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+
+
+</body>
+</html>
