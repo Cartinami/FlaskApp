@@ -5,35 +5,66 @@ app = Flask(__name__)
 app.debug = True
 seed()
 
+cash = 20
+totalprice = 0
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
 
 @app.route('/powerball', methods=['GET', 'POST'])
 def powerball():
-    money = 20
-    ticketprice = -4
-    totalprice = 0
-    winningnumbers = ['','','','','']
+    global totalprice
+    global cash
+    lowfunds = 'fade'
+    winningnumbers = [' ',' ',' ',' ',' ']
+    netcolor = 'positive'
 
     if request.method == 'GET':
-        return render_template('powerball.html', money=money, winningnumbers=winningnumbers)
+        net = 0
+        totalprice = 0
+        return render_template('powerball.html',cash=cash,totalprice=totalprice,lowfunds=lowfunds,winningnumbers=winningnumbers,net=net,netcolor=netcolor)
     elif request.method == 'POST':
+        winningnumbers = [randint(1,10),randint(1,10),randint(1,10),randint(1,10),randint(1,10)]
         requestdata = request.form['numofticks']
-        tickets = int(requestdata)
-        winningnumbers = [randint(1,10), randint(1,10), randint(1,10), randint(1,10), randint(1,10)]
-        boards = []
-        stats = []
-        indexes = []
-        matches = []
-        prizes = []
-        winstats = []
+        requesttick = request.form['tickradio']
 
-        i = 0
-        while len(boards) < tickets:
-            if not (money < ticketprice):
-                money = money - ticketprice
-                totalprice = totalprice + ticketprice
+        try:
+            tickets = int(requestdata)
+        except:
+            net = 0
+            totalprice = 0
+            return render_template('powerball.html',cash=cash,totalprice=totalprice,lowfunds=lowfunds,winningnumbers=winningnumbers,net=net,netcolor=netcolor)
+
+        if requesttick == 'hard':
+            ticketprice = 50
+        elif requesttick == 'med':
+            ticketprice = 20
+        elif requesttick == 'easy':
+            ticketprice = 4
+
+
+        totalprice = tickets * ticketprice
+        maxticks = cash / ticketprice
+        maxcost = maxticks * ticketprice
+        coststr = str(maxcost)
+        maxstr = str(maxticks)
+
+        if totalprice > cash:
+            lowfunds = 'show'
+            net = 0
+            return render_template('powerball.html',cash=cash,ticketprice=ticketprice,totalprice=totalprice,maxstr=maxstr,lowfunds=lowfunds,winningnumbers=winningnumbers,coststr=coststr,net=net)
+        else:
+            boards = []
+            stats = []
+            indexes = []
+            matches = []
+            prizes = []
+            winstats = []
+            i = 0
+
+            while len(boards) < tickets:
+                cash = cash - ticketprice
                 one = randint(1,10)
                 two = randint(1,10)
                 three = randint(1,10)
@@ -44,28 +75,27 @@ def powerball():
                 if ((one == winningnumbers[0]) and (two == winningnumbers[1]) and (three == winningnumbers[2]) and (four == winningnumbers[3]) and (five == winningnumbers[4])):
                     status = '!!!!!!!WINNER!!!!!!!'
                     amount = 1200
-                    money = money + amount
+                    cash = cash + amount
                 elif ((one == winningnumbers[0]) and (two == winningnumbers[1]) and (three == winningnumbers[2]) and (four == winningnumbers[3])):
                     status = 'Four'
                     amount = 1000
-                    money = money + amount
+                    cash = cash + amount
                 elif ((one == winningnumbers[0]) and (two == winningnumbers[1]) and (three == winningnumbers[2])):
                     status = 'Three'
                     amount = 600
-                    money = money + amount
+                    cash = cash + amount
                 elif ((one == winningnumbers[0]) and (two == winningnumbers[1])):
                     status = 'Two'
                     amount = 200
-                    money = money + amount
+                    cash = cash + amount
                 elif one == winningnumbers[0]:
                     status = 'One'
                     amount = 40
-                    money = money + amount
+                    cash = cash + amount
                 else:
                     status = 'L'
-                    money = money
+                    cash = cash
                     amount = 0
-                net = money + totalprice
                 stats.append(status)
 
                 if len(stats[i]) > 1:
@@ -76,12 +106,18 @@ def powerball():
                     i += 1
                 else:
                     i += 1
-            else:
-                break
-        return render_template('powerball.html',boards=boards,winningnumbers=winningnumbers,money=money,winstats=winstats,totalprice=totalprice,net=net)
+
+            net = (-totalprice) + amount
+            if net < 0:
+                netcolor = 'negative'
+
+        try:
+            res = request.form['purchase']
+        except:
+            'oops'
+        return render_template('powerball.html',cash=cash,totalprice=totalprice,maxstr=maxstr,lowfunds=lowfunds,winningnumbers=winningnumbers,coststr=coststr,boards=boards,net=net,winstats=winstats,netcolor=netcolor)
     else:
         return 'Invalid Request Method'
-
 
 
 

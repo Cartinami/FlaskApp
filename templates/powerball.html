@@ -13,6 +13,33 @@
 </head>
 
 <body>
+  <div class="modal {{ lowfunds }}">
+    <div class="modal-dialog modal-med">
+      <div id="modalcontent" class="modal-content">
+        <div class="modal-header">
+          <h3>Not Enough Cash..</h3>
+        </div>
+        <div class="modal-body">
+          <div>
+            <h4>Price: </h4><h6>${{ totalprice }}.00</h6><br />
+            <h4>Your Cash: </h4><h6 id="negative">${{ cash }}.00</h6><br />
+            <h4>Max Boards: </h4><h6>{{ maxstr }}</h6><br />
+          </div>
+          <div>
+            <h4>Would you like to buy {{ maxstr }} boards for ${{ coststr }}.00?</h4>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <form action="/powerball" method="post">
+            <input type="text" name="purchasemax" value="{{ maxstr }}" hidden="hidden" />
+            <input type="submit" name="purchase" value="Cancel" class="btn btn-alert" />
+            <input type="submit" name="purchase" value="Purchase" class="btn btn-primary" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -25,16 +52,21 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Username</a></li>
-        <li><a href="#">${{ money }}</a></li>
+        <li><a href="#">${{ cash }}.00</a></li>
       </ul>
     </div>
   </nav>
 
   <div id="formdiv">
     <form id="purchaseform" action="/powerball" method="post" name="ticketsform">
-      <h3>Enter Amount of Boards</h3>
-      <input name="numofticks" type="number" /><br /><br />
-      <button name="btnsubmit" type="submit" class="btn btn-default">Purchase</button>
+      <h3>Purchase Tickets:</h3>
+      <input id="numofticks" name="numofticks" type="number" />
+      <div id="raddiv">
+        <input id="smradio" name="tickradio" class="tickradio" type="radio" value="easy" checked="true" /> $4.00<br />
+        <input id="medradio" name="tickradio" class="tickradio" type="radio" value="med" /> $20.00<br />
+        <input id="lgradio" name="tickradio" class="tickradio" type="radio" value="hard" /> $50.00<br />
+      </div>
+      <button id="btnsubmit" name="btnsubmit" type="submit" class="btn btn-default">Purchase</button>
     </form>
     <div id="winningnumbers">
       <h3>Winning Numbers</h3>
@@ -64,24 +96,42 @@
   </div>
 
   <div id="winstats">
-    <h3 id="winningstats">Winning Stats</h3>
+    <h3 id="winningstats">Stats</h3>
     <table class="table table-bordered">
+      <tr>
+        <td>Total Price:</td>
+        <td></td>
+        <td>${{ totalprice }}.00</td>
+      </tr>
+      <tr>
+        <td>Net:</td>
+        <td></td>
+        <td id="{{ netcolor }}">${{ net }}.00</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
       <tr>
         <th>Board #</th>
         <th># of Matches</th>
         <th>Prize</th>
       </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
       {% for row in winstats %}
         <tr>
           <td>{{ row[0] }}</td>
           <td>{{ row[1] }}</td>
-          <td>{{ row[2] }}</td>
+          <td id="positive">{{ row[2] }}</td>
         </tr>
       {% endfor %}
     </table>
     <br />
-    {{ totalprice }} <br />
-    {{ net }}
   </div>
 </body>
 

@@ -2,7 +2,12 @@ html{
   width: auto;
   height: auto;
 }
-
+#positive{
+  color: green;
+}
+#negative{
+  color: red;
+}
 /*    --index.html--    */
 #indexdiv{
   height: auto;
@@ -20,6 +25,9 @@ html{
 }
 
 /*    --powerball.html--    */
+#modalcontent{
+  height: 500px;
+}
 #formdiv{
   width: 100%;
   height: 175px;
@@ -28,8 +36,25 @@ html{
 #purchaseform{
   text-align: center;
   float: left;
-  width: 30%;
+  width: 40%;
   height: 175px;
+}
+#numofticks{
+  width: 120px;
+  float: left;
+  margin-left: 15%;
+}
+#raddiv{
+  width: 15%;
+  float: right;
+  margin-right: 15%;
+}
+.tickradio{
+  float: left;
+}
+#btnsubmit{
+  margin-top: 10%;
+  clear: both;
 }
 #winningnumbers{
   float: right;
